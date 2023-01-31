@@ -11,6 +11,7 @@
 	<groupId>com.polarbookshop</groupId>
 	<artifactId>config-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>config-service</name>
 	<description>Provides functionality for centralizing the application configuration</description>
 	<properties>
@@ -46,6 +47,27 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>${docker.name}</name>
+						<env>
+                            <BP_JVM_VERSION>17.*</BP_JVM_VERSION>
+                        </env>
+					</image>
+					<docker>
+						<publishRegistry>
+							<username>${docker-registry-username}</username>
+							<password>${docker-registry-password}</password>
+							<url>${docker-registry}</url>
+						</publishRegistry>
+					</docker>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
